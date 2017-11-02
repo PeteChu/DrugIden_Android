@@ -3,10 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:gravity="center"
-        android:text="Fragment Med Search List"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView_med_search_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
