@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <ImageView
+        android:scaleType="fitXY"
+        android:id="@+id/imageView_medicine_photo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@mipmap/ic_launcher" />
+
     <LinearLayout
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/imageView_medicine_photo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher" />
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView_med_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:text="ชื่อการค้า : BOOTS ORPHENADRINE PLUS PARA" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ชื่อการค้า : BOOTS ORPHENADRINE PLUS PARA" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="เลขทะเบียน : 2A 129/49" />
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/textView_med_regNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="เลขทะเบียน : 2A 129/49" />
 
     </LinearLayout>
 

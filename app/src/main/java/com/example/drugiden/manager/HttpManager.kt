@@ -14,7 +14,7 @@ class HttpManager {
 
     constructor() {
         var retrofit = Retrofit.Builder()
-                .baseUrl("http://159.89.196.187/")
+                .baseUrl("http://159.89.196.187:5000/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 
@@ -26,7 +26,7 @@ class HttpManager {
     }
 
     companion object {
-        fun newInstance(): HttpManager {
+        fun getInstance(): HttpManager {
             var instance = HttpManager()
             return instance
         }
