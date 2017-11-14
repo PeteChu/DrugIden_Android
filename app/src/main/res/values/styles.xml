@@ -8,4 +8,12 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="Subhead" parent="Base.TextAppearance.AppCompat.Subhead">
+        <item name="android:padding">5dp</item>
+    </style>
+
+    <style name="Body" parent="Base.TextAppearance.AppCompat.Body1">
+        <item name="android:padding">5dp</item>
+    </style>
+
 </resources>

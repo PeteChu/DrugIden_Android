@@ -5,6 +5,6 @@ import java.io.Serializable
 
 data class QuickSearchMedResponse(
 
-	@field:SerializedName("result")
-	val result: List<ResultItem>? = null
-): Serializable
+        @field:SerializedName("result")
+        val result: List<ResultItem>? = null
+) : Serializable

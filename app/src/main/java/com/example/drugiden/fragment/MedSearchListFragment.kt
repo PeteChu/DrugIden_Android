@@ -45,7 +45,7 @@ class MedSearchListFragment : Fragment() {
 
         mRecyclerView = rootView.recyclerView_med_search_list
         mRecyclerView.setHasFixedSize(true)
-        mAdapter = SearchItemListAdapter(listMedResponse)
+        mAdapter = SearchItemListAdapter(listMedResponse, fragmentManager!!)
         mLayoutManager = LinearLayoutManager(context)
         mRecyclerDivider = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
         mRecyclerView.layoutManager = mLayoutManager
@@ -54,7 +54,6 @@ class MedSearchListFragment : Fragment() {
 
         Toast.makeText(context, listMedResponse.result!!.size.toString(), Toast.LENGTH_SHORT).show()
     }
-
 
 
     companion object {
