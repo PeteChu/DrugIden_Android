@@ -2,9 +2,11 @@ package com.example.drugiden.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_med_search_list.view.*
 
 class MedSearchListFragment : Fragment() {
 
+    lateinit var mToolbar: Toolbar
     lateinit var mRecyclerView: RecyclerView
     lateinit var mAdapter: RecyclerView.Adapter<*>
     lateinit var mLayoutManager: RecyclerView.LayoutManager
@@ -42,6 +45,11 @@ class MedSearchListFragment : Fragment() {
     }
 
     private fun initInstances(rootView: View) {
+
+        mToolbar = rootView.toolbar_med_searchList
+        var actionbar = (activity as AppCompatActivity)
+        actionbar.setSupportActionBar(mToolbar)
+        actionbar.title = "ผลการค้นหา"
 
         mRecyclerView = rootView.recyclerView_med_search_list
         mRecyclerView.setHasFixedSize(true)

@@ -1,62 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar_med_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"></android.support.v7.widget.Toolbar>
 
-        <ImageView
-            android:id="@+id/imageView_app_logo"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <EditText
-                android:singleLine="true"
-                android:id="@+id/editText_search"
+            <ImageView
+                android:id="@+id/imageView_app_logo"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Medicine Name" />
+                android:layout_height="150dp"
+                android:padding="10dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/drugiden" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <Button
-                    android:padding="10dp"
-                    android:id="@+id/btn_quick_search"
+                <com.rengwuxian.materialedittext.MaterialEditText
+                    android:id="@+id/editText_search"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="Search" />
+                    android:layout_height="wrap_content"
+                    android:hint="Medicine Name"
+                    android:textSize="20sp"
+                    app:met_floatingLabel="highlight"
+                    app:met_singleLineEllipsis="true" />
 
-                <Button
-                    android:padding="10dp"
-                    android:id="@+id/btn_advance_search"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackground"
-                    android:gravity="center"
-                    android:text="Advance Search" />
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Advance Search"
+                        android:textSize="18sp" />
+
+                    <Switch
+                        android:id="@+id/switch_advanceSearch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:switchMinWidth="50dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/view_advanceSearch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_color"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
+                        android:hint="ลักษณะสี"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ชื่อการค้า"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ผู้รับอณุญาติ"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ผู้ผลิต"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ผู้จัดจำหน่าย"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ชื่อสามัญ"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="รูปร่างลักษณะ"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="รูปแบบผลิตภัณฑ์"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="สัญลักษณ์/ตัวอักษร ที่ปรากฎบนเม็ดยา"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="กว้าง (+-0.2cm)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ยาว (+-0.2cm)"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ขนาดด้านยาว"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="สถานะของยา"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ประเภทของยา"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ประเภททะเบียนยา"
+                        app:met_floatingLabel="highlight"
+                        app:met_singleLineEllipsis="true" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="20dp">
+
+                    <Button
+                        android:id="@+id/btn_quick_search"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Search"
+                        android:textSize="18sp" />
+
+                </LinearLayout>
+
             </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
