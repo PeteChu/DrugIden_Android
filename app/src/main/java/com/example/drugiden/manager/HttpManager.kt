@@ -10,26 +10,26 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class HttpManager {
 
-    var apiService: ApiService
+  var apiService: ApiService
 
-    constructor() {
-        var retrofit = Retrofit.Builder()
-                .baseUrl("http://159.89.196.187:5000/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
+  constructor() {
+    var retrofit = Retrofit.Builder()
+      .baseUrl("http://159.89.196.187/")
+      .addConverterFactory(GsonConverterFactory.create())
+      .build()
 
-        apiService = retrofit.create(ApiService::class.java)
+    apiService = retrofit.create(ApiService::class.java)
+  }
+
+  fun getService(): ApiService {
+    return apiService
+  }
+
+  companion object {
+    fun getInstance(): HttpManager {
+      var instance = HttpManager()
+      return instance
     }
-
-    fun getService(): ApiService {
-        return apiService
-    }
-
-    companion object {
-        fun getInstance(): HttpManager {
-            var instance = HttpManager()
-            return instance
-        }
-    }
+  }
 
 }
