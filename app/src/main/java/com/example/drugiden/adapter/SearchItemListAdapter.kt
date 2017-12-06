@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.drugiden.R
-import com.example.drugiden.dao.MedSearchResult
-import com.example.drugiden.dao.ResultsItem
+import com.example.drugiden.dao.DrugSearchList
+import com.example.drugiden.dao.DrugSearchItem
 import com.example.drugiden.fragment.MedDetailFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.custom_item_search.view.*
@@ -17,9 +17,9 @@ import kotlinx.android.synthetic.main.custom_item_search.view.*
  * Created by schecterza on 10/28/2017.
  */
 
-class SearchItemListAdapter(listMedResponse: MedSearchResult, fragmentManager: FragmentManager) : RecyclerView.Adapter<SearchItemListAdapter.ViewHolder>() {
+class SearchItemListAdapter(listDrugResponse: DrugSearchList, fragmentManager: FragmentManager) : RecyclerView.Adapter<SearchItemListAdapter.ViewHolder>() {
 
-    var mListMedResponse = listMedResponse.results
+    var mListMedResponse = listDrugResponse.results
     var mFragmentManager = fragmentManager
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
@@ -37,7 +37,7 @@ class SearchItemListAdapter(listMedResponse: MedSearchResult, fragmentManager: F
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun onBindData(listData: List<ResultsItem>?, position: Int, fragmentManager: FragmentManager) {
+        fun onBindData(listData: List<DrugSearchItem>?, position: Int, fragmentManager: FragmentManager) {
             var data = listData!![position]
 
             if (!data.dimgpath.isNullOrEmpty()) {
@@ -52,7 +52,7 @@ class SearchItemListAdapter(listMedResponse: MedSearchResult, fragmentManager: F
             itemView.setOnClickListener { onClick(itemView.context, data, fragmentManager) }
         }
 
-        fun onClick(c: Context, data: ResultsItem, fragmentManager: FragmentManager) {
+        fun onClick(c: Context, data: DrugSearchItem, fragmentManager: FragmentManager) {
             fragmentManager.beginTransaction()
                     .replace(R.id.mainActivity_content_container, MedDetailFragment.newInstance(data))
                     .addToBackStack(null)

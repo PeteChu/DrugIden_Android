@@ -2,7 +2,7 @@ package com.example.drugiden.dao
 
 import com.google.gson.annotations.SerializedName
 
-data class ImageListItem(
+data class DrugImageItem(
 
 	@field:SerializedName("path")
 	val path: String? = null,

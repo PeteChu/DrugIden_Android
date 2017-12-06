@@ -3,4 +3,20 @@
     <color name="colorPrimary">#2A93D5</color>
     <color name="colorPrimaryDark">#135589</color>
     <color name="colorAccent">#2A93D5</color>
+
+    <string-array name="pallet_colors">
+        <item>#FFFFFF</item>
+        <item>#ea0000</item>
+        <item>#fe700e</item>
+        <item>#ffe400</item>
+        <item>#efeddb</item>
+        <item>#a8e26a</item>
+        <item>#4a9fe0</item>
+        <item>#120992</item>
+        <item>#fdb1ef</item>
+        <item>#c977db</item>
+        <item>#c2924a</item>
+        <item>#cccccc</item>
+        <item>#232222</item>
+    </string-array>
 </resources>

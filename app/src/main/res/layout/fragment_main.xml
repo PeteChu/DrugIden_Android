@@ -41,7 +41,7 @@
                     android:id="@+id/editText_search"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Medicine Name"
+                    android:hint="ค้นหายา"
                     android:textSize="20sp"
                     app:met_floatingLabel="highlight"
                     app:met_singleLineEllipsis="true" />
@@ -49,7 +49,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -71,33 +72,109 @@
                     android:id="@+id/view_advanceSearch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="10dp">
 
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:id="@+id/editText_advOption_color"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="false"
-                        android:hint="ลักษณะสี"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="ลักษณะสี 1" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="ลักษณะสี 2" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="ลักษณะสี 3" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="ลักษณะสี 4" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:orientation="horizontal">
+
+                        <com.github.pavlospt.CircleView
+                            android:id="@+id/advOption_color1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:cv_backgroundColorValue="#E5E5E5"
+                            app:cv_fillColor="#FFFFFF"
+                            app:cv_strokeColorValue="#FFFFFF"
+                            app:cv_titleColor="#000000"
+                            app:cv_titleSize="16sp"
+                            app:cv_titleText="ไม่ระบุ" />
+
+                        <com.github.pavlospt.CircleView
+                            android:id="@+id/advOption_color2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:cv_backgroundColorValue="#E5E5E5"
+                            app:cv_fillColor="#FFFFFF"
+                            app:cv_strokeColorValue="#FFFFFF"
+                            app:cv_titleColor="#000000"
+                            app:cv_titleSize="16sp"
+                            app:cv_titleText="ไม่ระบุ" />
+
+                        <com.github.pavlospt.CircleView
+                            android:id="@+id/advOption_color3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:cv_backgroundColorValue="#E5E5E5"
+                            app:cv_fillColor="#FFFFFF"
+                            app:cv_strokeColorValue="#FFFFFF"
+                            app:cv_titleColor="#000000"
+                            app:cv_titleSize="16sp"
+                            app:cv_titleText="ไม่ระบุ" />
+
+                        <com.github.pavlospt.CircleView
+                            android:id="@+id/advOption_color4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            app:cv_backgroundColorValue="#E5E5E5"
+                            app:cv_fillColor="#FFFFFF"
+                            app:cv_strokeColorValue="#FFFFFF"
+                            app:cv_titleColor="#000000"
+                            app:cv_titleSize="16sp"
+                            app:cv_titleText="ไม่ระบุ" />
+
+                    </LinearLayout>
+
+
+                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/advOption_licensee"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="ผู้รับอนุญาต"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="ชื่อการค้า"
-                        app:met_floatingLabel="highlight"
-                        app:met_singleLineEllipsis="true" />
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="ผู้รับอณุญาติ"
-                        app:met_floatingLabel="highlight"
-                        app:met_singleLineEllipsis="true" />
-
-                    <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/advOption_manufacturer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="ผู้ผลิต"
@@ -105,6 +182,7 @@
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/advOption_distributor"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="ผู้จัดจำหน่าย"
@@ -112,6 +190,7 @@
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/advOption_genericName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="ชื่อสามัญ"
@@ -119,65 +198,97 @@
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_drugShape"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="รูปร่างลักษณะ"
+                        android:text="ไม่ระบุ"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_drugType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="รูปแบบผลิตภัณฑ์"
+                        android:text="ไม่ระบุ"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_drugShapeType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="สัญลักษณ์/ตัวอักษร ที่ปรากฎบนเม็ดยา"
+                        android:text="ไม่ระบุ"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/advOption_drugWide"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="กว้าง (+-0.2cm)"
+                        android:inputType="numberDecimal"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/advOption_drugLong"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="ยาว (+-0.2cm)"
+                        android:inputType="numberDecimal"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_drugSize"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="ขนาดด้านยาว"
+                        android:text="ไม่ระบุ"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_drugStatus"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="สถานะของยา"
+                        android:text="ไม่ระบุ"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_drugGroup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="ประเภทของยา"
+                        android:text="ไม่ระบุ"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
                     <com.rengwuxian.materialedittext.MaterialEditText
+                        android:id="@+id/editText_advOption_drugRType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="false"
                         android:hint="ประเภททะเบียนยา"
+                        android:text="ไม่ระบุ"
                         app:met_floatingLabel="highlight"
                         app:met_singleLineEllipsis="true" />
 
@@ -188,7 +299,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingTop="20dp">
+                    android:paddingTop="50dp">
 
                     <Button
                         android:id="@+id/btn_quick_search"

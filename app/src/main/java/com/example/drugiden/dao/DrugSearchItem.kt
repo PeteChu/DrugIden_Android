@@ -3,7 +3,7 @@ package com.example.drugiden.dao
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class ResultsItem(
+data class DrugSearchItem(
 
   @field:SerializedName("regno")
   val regno: String? = null,

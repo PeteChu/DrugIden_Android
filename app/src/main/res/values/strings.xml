@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">DrugIden</string>
+    <string name="app_name">ยาอะไร</string>
+    <string name="token">eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjExMTExIiwidXVpZCI6ImVlMmZjMjc5LWE0YTctNGYxNy04NTVjLTllMDY2ZTRkZjdmMSIsImlhdCI6MTUxMjQwMjE4NSwiZXhwIjoxNTEzMDA2OTg1fQ.ccCrMMELmVkaLRbDa7Avno3ektW_cKeL9aAcijKoEWIyooDw9f6ZN05--j-KXhuiscAcGrekuOc_VA05lmyY1Q</string>
 </resources>

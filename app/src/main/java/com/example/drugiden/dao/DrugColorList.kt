@@ -1,9 +1,11 @@
 package com.example.drugiden.dao
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
-data class MedSearchResult(
+
+class DrugColorList(
+
   @field:SerializedName("results")
-  val results: List<ResultsItem>? = null
-) : Serializable
+  val results: List<DrugColorItem>? = null
+)
+

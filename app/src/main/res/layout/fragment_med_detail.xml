@@ -25,14 +25,21 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="250dp"
                 android:background="#F2F2F2">
 
-                <ImageView
-                    android:id="@+id/imageView_medicine_image_detail"
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/detail_viewPager_preview_image"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:scaleType="center" />
+                    android:layout_height="match_parent" />
+
+
+                <com.viewpagerindicator.CirclePageIndicator
+                    android:id="@+id/detail_page_indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:padding="10dp" />
 
             </FrameLayout>
 
@@ -40,21 +47,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="10dp">
-
-                <TextView
-                    style="@style/Subhead"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ชื่อการค้า (ภาษาไทย)" />
-
-                <TextView
-                    android:id="@+id/textView_med_tradeName_th"
-                    style="@style/Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                android:orientation="vertical">
 
                 <TextView
                     style="@style/Subhead"
@@ -115,6 +110,103 @@
                     style="@style/Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ขนาด" />
+
+                <TextView
+                    android:id="@+id/textView_med_size"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="กว้าง" />
+
+                <TextView
+                    android:id="@+id/textView_med_wide"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ยาว" />
+
+                <TextView
+                    android:id="@+id/textView_med_long"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="รูปแบบผลิตภัณฑ์" />
+
+                <TextView
+                    android:id="@+id/textView_med_type"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="รูปร่าง" />
+
+                <TextView
+                    android:id="@+id/textView_med_shape"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ประเภทของยา" />
+
+                <TextView
+                    android:id="@+id/textView_med_group"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ประเภททะเบียนยา" />
+
+                <TextView
+                    android:id="@+id/textView_med_rType"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="สถานะของยา" />
+
+                <TextView
+                    android:id="@+id/textView_med_status"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
 
             </LinearLayout>
 
