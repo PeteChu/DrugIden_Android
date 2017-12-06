@@ -23,57 +23,58 @@ class PreviewImagesAdapter(imagesList: List<DrugImageItem>,
                            fragmentManager: FragmentManager,
                            zoomAble: Boolean) : PagerAdapter() {
 
-  var imagesList: List<DrugImageItem>
-  var imagesListSize: Int = 0
-  var zoomAble: Boolean = false
-  var fragmentManager: FragmentManager? = null
+    var imagesList: List<DrugImageItem>
+    var imagesListSize: Int = 0
+    var zoomAble: Boolean = false
+    var fragmentManager: FragmentManager? = null
 
-  init {
-    this.imagesList = imagesList
-    this.imagesListSize = imagesListSize
-    this.zoomAble = zoomAble
-    this.fragmentManager = fragmentManager
-  }
-
-  override fun instantiateItem(container: ViewGroup, position: Int): Any {
-
-    val frameLayout = FrameLayout(container.context)
-    frameLayout.setBackgroundColor(Color.parseColor("#000000"))
-
-
-    var imageView = ImageView(frameLayout.context)
-
-    if (zoomAble) {
-      imageView = PhotoView(frameLayout.context)
+    init {
+        this.imagesList = imagesList
+        this.imagesListSize = imagesListSize
+        this.zoomAble = zoomAble
+        this.fragmentManager = fragmentManager
     }
 
-    imageView.setOnClickListener({
-      fragmentManager!!.beginTransaction()
-        .replace(R.id.mainActivity_content_container, PreviewImageFragment.newInstance(imagesList[position].path!!))
-        .addToBackStack(null)
-        .commit()
-    })
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
-    Picasso.with(container.context)
-      .load("http://www.phar.ubu.ac.th/drugiden/" + imagesList[position].path)
-      .into(imageView)
+        val frameLayout = FrameLayout(container.context)
+        frameLayout.setBackgroundColor(Color.parseColor("#000000"))
 
-    frameLayout.addView(imageView)
 
-    container.addView(frameLayout, 0)
-    return frameLayout
+        var imageView = ImageView(frameLayout.context)
 
-  }
+        if (zoomAble) {
+            imageView = PhotoView(frameLayout.context)
+        }
 
-  override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
-    return container.removeView(`object` as View)
-  }
+        imageView.setOnClickListener({
+            fragmentManager!!.beginTransaction()
+                    .replace(R.id.mainActivity_content_container, PreviewImageFragment.newInstance(imagesList[position].path!!))
+                    .addToBackStack(null)
+                    .commit()
+        })
 
-  override fun isViewFromObject(view: View, `object`: Any): Boolean {
-    return view == `object`
-  }
+        Picasso.with(container.context)
+                .load("http://www.phar.ubu.ac.th/drugiden/" + imagesList[position].path)
+                .error(R.mipmap.ic_placeholder)
+                .into(imageView)
 
-  override fun getCount(): Int {
-    return imagesListSize
-  }
+        frameLayout.addView(imageView)
+
+        container.addView(frameLayout, 0)
+        return frameLayout
+
+    }
+
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        return container.removeView(`object` as View)
+    }
+
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view == `object`
+    }
+
+    override fun getCount(): Int {
+        return imagesListSize
+    }
 }

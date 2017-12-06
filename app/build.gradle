@@ -20,6 +20,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '27.0.1'
 }
 
 dependencies {
@@ -41,5 +42,4 @@ dependencies {
     implementation 'com.thebluealliance:spectrum:0.7.1'
     implementation 'com.github.pavlospt:circleview:1.3'
     implementation 'petrov.kristiyan:colorpicker-library:1.1.7'
-
 }
