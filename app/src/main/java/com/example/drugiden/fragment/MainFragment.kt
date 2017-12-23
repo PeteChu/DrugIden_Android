@@ -1,5 +1,6 @@
 package com.example.drugiden.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -67,6 +68,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     var mColor2: String = ""
     var mColor3: String = ""
     var mColor4: String = ""
+    var mTradename: String = ""
     var mLicense: String = ""
     var mManufacturer: String = ""
     var mDistributor: String = ""
@@ -140,8 +142,11 @@ class MainFragment : Fragment(), View.OnClickListener {
 
 
         var actionbar = (activity as AppCompatActivity)
+        mToolbar.setTitle(R.string.app_name)
+        mToolbar.setTitleTextColor(Color.parseColor("#FFFFFF"))
         actionbar.setSupportActionBar(mToolbar)
-        actionbar.setTitle(R.string.app_name)
+
+        actionbar.supportActionBar!!.hide()
 
         if (!switchAdvSearch.isChecked) {
             collapse(optionsAdvSearch)
@@ -229,55 +234,72 @@ class MainFragment : Fragment(), View.OnClickListener {
      */
 
     private fun searchDrug() {
-        if (!isEditTextEmpty(editTextSearch)) {
+//        if (!isEditTextEmpty(editTextSearch)) {
+//        Toast.makeText(context, editTextSearch.text.toString(), Toast.LENGTH_SHORT).show()
 
-            var call: Call<DrugSearchList>
+//        MaterialDialog.Builder(context)
+//                .progressIndeterminateStyle(false)
 
-            if (!switchAdvSearch.isChecked) {
+        var call: Call<DrugSearchList>
+
+        if (!switchAdvSearch.isChecked) {
+
+            if (!isEditTextEmpty(editTextSearch)) {
                 call = HttpManager.getInstance().getService().quickSearch(editTextSearch.text.toString(), resources.getString(R.string.token))
             } else {
-                call = HttpManager.getInstance().getService().advanceSearch(
-                        mColor1, mColor2, mColor3, mColor4, editTextSearch.text.toString(), mManufacturer, mGenericName, mLicense, mDistributor, mDGroup,
-                        mDType, mDRType, mDShape, mDWide, mDLong, mShapeText, mShapeText2, mShapeText3, mShapeText4, mShapeText5,
-                        mShapeText6, mDSize, mDStatus, resources.getString(R.string.token))
+                MaterialDialog.Builder(context!!)
+                        .title("ผลการค้นหา")
+                        .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
+                        .contentGravity(GravityEnum.CENTER)
+                        .positiveText("ตกลง")
+                        .show()
+                return
             }
 
-            call.enqueue(object : Callback<DrugSearchList> {
-
-                override fun onResponse(call: Call<DrugSearchList>?, response: Response<DrugSearchList>?) {
-                    if (response!!.isSuccessful) {
-
-                        listDrugResponse = response.body()!!
-
-                        if (listDrugResponse.results!!.isNotEmpty()) {
-                            fragmentManager!!.beginTransaction()
-                                    .replace(R.id.mainActivity_content_container, MedSearchListFragment.newInstance(listDrugResponse))
-                                    .addToBackStack(null)
-                                    .commit()
-                        } else {
-                            MaterialDialog.Builder(context!!)
-                                    .title("ผลการค้นหา")
-                                    .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
-                                    .contentGravity(GravityEnum.CENTER)
-                                    .positiveText("ตกลง")
-                                    .show()
-                        }
-
-                    }
-                }
-
-                override fun onFailure(call: Call<DrugSearchList>?, t: Throwable?) {
-                    MaterialDialog.Builder(context!!)
-                            .title("ผลการค้นหา")
-                            .content("-กรุณาลองอีกครั้ง-")
-                            .contentGravity(GravityEnum.CENTER)
-                            .positiveText("ตกลง")
-                            .show()
-                }
-            })
         } else {
-            editTextSearch.error = "Error"
+            mTradename = editTextSearch.text.toString()
+            call = HttpManager.getInstance().getService().advanceSearch(
+                    mColor1, mColor2, mColor3, mColor4, mTradename, mManufacturer, mGenericName, mLicense, mDistributor, mDGroup,
+                    mDType, mDRType, mDShape, mDWide, mDLong, mShapeText, mShapeText2, mShapeText3, mShapeText4, mShapeText5,
+                    mShapeText6, mDSize, mDStatus, resources.getString(R.string.token))
         }
+
+        call.enqueue(object : Callback<DrugSearchList> {
+
+            override fun onResponse(call: Call<DrugSearchList>?, response: Response<DrugSearchList>?) {
+                if (response!!.isSuccessful) {
+
+                    listDrugResponse = response.body()!!
+
+                    if (listDrugResponse.results!!.isNotEmpty()) {
+                        fragmentManager!!.beginTransaction()
+                                .replace(R.id.mainActivity_content_container, MedSearchListFragment.newInstance(listDrugResponse))
+                                .addToBackStack(null)
+                                .commit()
+                    } else {
+                        MaterialDialog.Builder(context!!)
+                                .title("ผลการค้นหา")
+                                .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
+                                .contentGravity(GravityEnum.CENTER)
+                                .positiveText("ตกลง")
+                                .show()
+                    }
+
+                }
+            }
+
+            override fun onFailure(call: Call<DrugSearchList>?, t: Throwable?) {
+                MaterialDialog.Builder(context!!)
+                        .title("ผลการค้นหา")
+                        .content("-กรุณาลองอีกครั้ง-")
+                        .contentGravity(GravityEnum.CENTER)
+                        .positiveText("ตกลง")
+                        .show()
+            }
+        })
+//        } else {
+//            editTextSearch.error = "Error"
+//        }
     }
 
     /**
