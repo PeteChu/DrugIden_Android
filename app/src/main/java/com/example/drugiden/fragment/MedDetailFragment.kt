@@ -2,6 +2,7 @@ package com.example.drugiden.fragment
 
 import android.graphics.Color
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -71,7 +72,6 @@ class MedDetailFragment : Fragment() {
         rootView.textView_med_group.text = mDrugSearchDetail.dgroupname
         rootView.textView_med_rType.text = mDrugSearchDetail.drtypename
         rootView.textView_med_status.text = mDrugSearchDetail.dstatusname
-
 
         if (mDrugSearchDetail.tradenamename.isNullOrBlank()) {
             rootView.textView_med_tradeName_eng.text = "-"

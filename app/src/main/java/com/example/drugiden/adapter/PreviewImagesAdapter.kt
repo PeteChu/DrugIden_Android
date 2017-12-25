@@ -56,7 +56,7 @@ class PreviewImagesAdapter(imagesList: List<DrugImageItem>,
 
         Picasso.with(container.context)
                 .load("http://www.phar.ubu.ac.th/drugiden/" + imagesList[position].path)
-                .error(R.mipmap.ic_placeholder)
+                .error(R.drawable.ic_placeholder)
                 .into(imageView)
 
         frameLayout.addView(imageView)

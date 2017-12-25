@@ -5,6 +5,7 @@
     <color name="colorAccent">#2A93D5</color>
 
     <string-array name="pallet_colors">
+        <item>#EEEEEE</item>
         <item>#FFFFFF</item>
         <item>#ea0000</item>
         <item>#fe700e</item>

@@ -308,7 +308,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Search"
+                        android:text="ค้นหา"
                         android:textSize="18sp" />
 
                 </LinearLayout>

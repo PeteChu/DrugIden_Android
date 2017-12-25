@@ -20,41 +20,42 @@ import kotlinx.android.synthetic.main.fragment_preview_image.view.*
 
 class PreviewImageFragment : Fragment() {
 
-  lateinit var mImageView: ImageView
-  lateinit var url: String
+    lateinit var mImageView: ImageView
+    lateinit var url: String
 
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    val rootView = inflater.inflate(R.layout.fragment_preview_image, container, false)
-    initInstances(rootView)
-    return rootView
-  }
-
-  override fun onCreate(savedInstanceState: Bundle?) {
-
-    url = arguments!!.getString("url")
-    super.onCreate(savedInstanceState)
-  }
-
-
-  fun initInstances(rootView: View) {
-
-    mImageView = rootView.preview_image
-
-    Picasso.with(context)
-      .load("http://www.phar.ubu.ac.th/drugiden/" + url)
-      .into(mImageView)
-
-  }
-
-
-  companion object {
-    fun newInstance(url: String): Fragment {
-      var fragment = PreviewImageFragment()
-      var args = Bundle()
-      args.putString("url", url)
-      fragment.arguments = args
-      return fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val rootView = inflater.inflate(R.layout.fragment_preview_image, container, false)
+        initInstances(rootView)
+        return rootView
     }
-  }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        url = arguments!!.getString("url")
+        super.onCreate(savedInstanceState)
+    }
+
+
+    fun initInstances(rootView: View) {
+
+        mImageView = rootView.preview_image
+
+        Picasso.with(context)
+                .load("http://www.phar.ubu.ac.th/drugiden/" + url)
+                .error(R.drawable.ic_placeholder)
+                .into(mImageView)
+
+    }
+
+
+    companion object {
+        fun newInstance(url: String): Fragment {
+            var fragment = PreviewImageFragment()
+            var args = Bundle()
+            args.putString("url", url)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
 }

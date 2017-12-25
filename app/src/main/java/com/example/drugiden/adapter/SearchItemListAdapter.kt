@@ -43,7 +43,7 @@ class SearchItemListAdapter(listDrugResponse: DrugSearchList, fragmentManager: F
             if (!data.dimgpath.isNullOrEmpty()) {
                 Picasso.with(itemView.context)
                         .load("http://www.phar.ubu.ac.th/drugiden/" + data.dimgpath)
-                        .error(R.mipmap.ic_placeholder)
+                        .error(R.drawable.ic_placeholder)
                         .into(itemView.imageView_medicine_photo)
             }
 

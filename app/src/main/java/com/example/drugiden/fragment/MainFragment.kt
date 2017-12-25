@@ -1,8 +1,11 @@
 package com.example.drugiden.fragment
 
+import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.text.Editable
@@ -25,6 +28,7 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import com.example.drugiden.dao.*
 import com.github.pavlospt.CircleView
+import dmax.dialog.SpotsDialog
 import petrov.kristiyan.colorpicker.ColorPicker
 import kotlin.collections.ArrayList
 
@@ -37,6 +41,7 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     lateinit var mToolbar: Toolbar
     lateinit var imageViewLogo: ImageView
+    lateinit var waitDialog: SpotsDialog
     lateinit var viewOptionColor1: CircleView
     lateinit var viewOptionColor2: CircleView
     lateinit var viewOptionColor3: CircleView
@@ -97,14 +102,14 @@ class MainFragment : Fragment(), View.OnClickListener {
     var mDStatus: String? = null
 
     var mColorList = arrayListOf(
-        "#ffffffff", "#ffea0000", "#fffe700e", "#ffffe400", "#ffefeddb",
-        "#ffa8e26a", "#ff4a9fe0", "#ff120992", "#fffdb1ef", "#ffc977db",
-        "#ffc2924a", "#ffcccccc", "#ff232222")
+            "#ffeeeeee", "#ffffffff", "#ffea0000", "#fffe700e", "#ffffe400", "#ffefeddb",
+            "#ffa8e26a", "#ff4a9fe0", "#ff120992", "#fffdb1ef", "#ffc977db",
+            "#ffc2924a", "#ffcccccc", "#ff232222")
 
     var mColorMap = mapOf(
-        "ffffffff" to "ขาว", "ffea0000" to "แดง", "fffe700e" to "ส้ม", "ffffe400" to "เหลือง", "ffefeddb" to "ครีม",
-        "ffa8e26a" to "เขียว", "ff4a9fe0" to "ฟ้า", "ff120992" to "น้ำเงิน", "fffdb1ef" to "ชมพู", "ffc977db" to "ม่วง",
-        "ffc2924a" to "น้ำตาล", "ffcccccc" to "เทา", "ff232222" to "ดำ")
+            "ffeeeeee" to "ไม่ระบุ", "ffffffff" to "ขาว", "ffea0000" to "แดง", "fffe700e" to "ส้ม", "ffffe400" to "เหลือง", "ffefeddb" to "ครีม",
+            "ffa8e26a" to "เขียว", "ff4a9fe0" to "ฟ้า", "ff120992" to "น้ำเงิน", "fffdb1ef" to "ชมพู", "ffc977db" to "ม่วง",
+            "ffc2924a" to "น้ำตาล", "ffcccccc" to "เทา", "ff232222" to "ดำ")
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -180,6 +185,7 @@ class MainFragment : Fragment(), View.OnClickListener {
         editTextAdvOptionDrugType.setOnClickListener(this)
         editTextAdvOptionDrugRType.setOnClickListener(this)
 
+        waitDialog = SpotsDialog(context!!)
 
         onEditTextChange()
     }
@@ -338,6 +344,7 @@ class MainFragment : Fragment(), View.OnClickListener {
      */
 
     private fun searchDrug() {
+        waitDialog.show()
 
         var call: Call<DrugSearchList>?
 
@@ -346,12 +353,13 @@ class MainFragment : Fragment(), View.OnClickListener {
             if (!isEditTextEmpty(editTextSearch)) {
                 call = HttpManager.getInstance().getService().quickSearch(editTextSearch.text.toString(), resources.getString(R.string.token))
             } else {
+                waitDialog.dismiss()
                 MaterialDialog.Builder(context!!)
-                    .title("ผลการค้นหา")
-                    .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
-                    .contentGravity(GravityEnum.CENTER)
-                    .positiveText("ตกลง")
-                    .show()
+                        .title("ผลการค้นหา")
+                        .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
+                        .contentGravity(GravityEnum.CENTER)
+                        .positiveText("ตกลง")
+                        .show()
                 return
             }
 
@@ -359,31 +367,35 @@ class MainFragment : Fragment(), View.OnClickListener {
 
             mTradename = editTextSearch.text.toString()
             call = HttpManager.getInstance().getService().advanceSearch(
-                mColor1, mColor2, mColor3, mColor4, mTradename, mManufacturer, mGenericName, mLicense, mDistributor, mDGroup,
-                mDType, mDRType, mDShape, mDWide, mDLong, mShapeText, mShapeText2, mShapeText3, mShapeText4, mShapeText5,
-                mShapeText6, mDSize, mDStatus)
+                    mColor1, mColor2, mColor3, mColor4, mTradename, mManufacturer, mGenericName, mLicense, mDistributor, mDGroup,
+                    mDType, mDRType, mDShape, mDWide, mDLong, mShapeText, mShapeText2, mShapeText3, mShapeText4, mShapeText5,
+                    mShapeText6, mDSize, mDStatus)
         }
 
         call.enqueue(object : Callback<DrugSearchList> {
 
             override fun onResponse(call: Call<DrugSearchList>?, response: Response<DrugSearchList>?) {
+
+                waitDialog.dismiss()
+
                 if (response!!.isSuccessful) {
+
                     listDrugResponse = response.body()!!
 
-                    Toast.makeText(context, listDrugResponse.results!!.size.toString(), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(context, listDrugResponse.results!!.size.toString(), Toast.LENGTH_SHORT).show()
 
                     if (listDrugResponse.results!!.isNotEmpty()) {
                         fragmentManager!!.beginTransaction()
-                            .replace(R.id.mainActivity_content_container, MedSearchListFragment.newInstance(listDrugResponse))
-                            .addToBackStack(null)
-                            .commit()
+                                .replace(R.id.mainActivity_content_container, MedSearchListFragment.newInstance(listDrugResponse))
+                                .addToBackStack(null)
+                                .commit()
                     } else {
                         MaterialDialog.Builder(context!!)
-                            .title("ผลการค้นหา")
-                            .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
-                            .contentGravity(GravityEnum.CENTER)
-                            .positiveText("ตกลง")
-                            .show()
+                                .title("ผลการค้นหา")
+                                .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
+                                .contentGravity(GravityEnum.CENTER)
+                                .positiveText("ตกลง")
+                                .show()
                     }
 
                 }
@@ -391,11 +403,11 @@ class MainFragment : Fragment(), View.OnClickListener {
 
             override fun onFailure(call: Call<DrugSearchList>?, t: Throwable?) {
                 MaterialDialog.Builder(context!!)
-                    .title("ผลการค้นหา")
-                    .content("-กรุณาลองอีกครั้ง-")
-                    .contentGravity(GravityEnum.CENTER)
-                    .positiveText("ตกลง")
-                    .show()
+                        .title("ผลการค้นหา")
+                        .content("-กรุณาลองอีกครั้ง-")
+                        .contentGravity(GravityEnum.CENTER)
+                        .positiveText("ตกลง")
+                        .show()
             }
         })
 //        } else {
@@ -603,88 +615,89 @@ class MainFragment : Fragment(), View.OnClickListener {
 
     private fun onClickEditTextAdvOptionDrugGroup() {
         MaterialDialog.Builder(context!!)
-            .title("ประเภทของยา")
-            .items(mDrugGroup)
-            .itemsCallback({ dialog, itemView, position, text ->
-                editTextAdvOptionDrugGroup.setText(text)
-                mDGroup = position.toString()
-                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-            })
-            .show()
+                .title("ประเภทของยา")
+                .items(mDrugGroup)
+                .itemsCallback({ dialog, itemView, position, text ->
+                    editTextAdvOptionDrugGroup.setText(text)
+                    mDGroup = position.toString()
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+                })
+                .show()
     }
 
     private fun onClickEditTextAdvOptionDrugSize() {
         MaterialDialog.Builder(context!!)
-            .title("ขนาดด้านยาว")
-            .items(mDrugSize)
-            .itemsCallback({ dialog, itemView, position, text ->
-                editTextAdvOptionDrugSize.setText(text)
-                mDSize = position.toString()
-                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-            })
-            .show()
+                .title("ขนาดด้านยาว")
+                .items(mDrugSize)
+                .itemsCallback({ dialog, itemView, position, text ->
+                    editTextAdvOptionDrugSize.setText(text)
+                    mDSize = position.toString()
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+                })
+                .show()
     }
 
     private fun onClickEditTextAdvOptionDrugShape() {
         MaterialDialog.Builder(context!!)
-            .title("รูปร่างลักษณะ")
-            .items(mDrugShape)
-            .itemsCallback({ dialog, itemView, position, text ->
-                editTextAdvOptionDrugShape.setText(text)
-                mDShape = position.toString()
-                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-            })
-            .show()
+                .title("รูปร่างลักษณะ")
+                .items(mDrugShape)
+                .itemsCallback({ dialog, itemView, position, text ->
+                    editTextAdvOptionDrugShape.setText(text)
+                    mDShape = position.toString()
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+                })
+                .show()
     }
 
     private fun onClickEditTextAdvOptionDrugShapeType() {
         MaterialDialog.Builder(context!!)
-            .title("สัญลักษณ์ / ตัวอักษร ที่ปรากฎบนเม็ดยา")
-            .items(mDrugShapeType)
-            .itemsCallbackMultiChoice(null, object : MaterialDialog.ListCallbackMultiChoice {
-                override fun onSelection(dialog: MaterialDialog?, which: Array<Int>, text: Array<CharSequence>): Boolean {
-                    Toast.makeText(context, text.toString(), Toast.LENGTH_SHORT).show()
-                    return true
-                }
-            })
-            .positiveText("OK")
-            .show()
+                .title("สัญลักษณ์ / ตัวอักษร ที่ปรากฎบนเม็ดยา")
+                .items(mDrugShapeType)
+                .itemsCallbackMultiChoice(null, object : MaterialDialog.ListCallbackMultiChoice {
+                    override fun onSelection(dialog: MaterialDialog?, which: Array<Int>, text: Array<CharSequence>): Boolean {
+
+                        Toast.makeText(context, text.toString(), Toast.LENGTH_SHORT).show()
+                        return true
+                    }
+                })
+                .positiveText("OK")
+                .show()
     }
 
     private fun onClickEditTextAdvOptionDrugStatus() {
         MaterialDialog.Builder(context!!)
-            .title("สถานะของยา")
-            .items(mDrugStatus)
-            .itemsCallback({ dialog, itemView, position, text ->
-                editTextAdvOptionDrugStatus.setText(text)
-                mDStatus = position.toString()
-                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-            })
-            .show()
+                .title("สถานะของยา")
+                .items(mDrugStatus)
+                .itemsCallback({ dialog, itemView, position, text ->
+                    editTextAdvOptionDrugStatus.setText(text)
+                    mDStatus = position.toString()
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+                })
+                .show()
     }
 
     private fun onClickEditTextAdvOptionDrugType() {
         MaterialDialog.Builder(context!!)
-            .title("รูปแบบผลิตภัณฑ์")
-            .items(mDrugType)
-            .itemsCallback({ dialog, itemView, position, text ->
-                editTextAdvOptionDrugType.setText(text)
-                mDType = position.toString()
-                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-            })
-            .show()
+                .title("รูปแบบผลิตภัณฑ์")
+                .items(mDrugType)
+                .itemsCallback({ dialog, itemView, position, text ->
+                    editTextAdvOptionDrugType.setText(text)
+                    mDType = position.toString()
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+                })
+                .show()
     }
 
     private fun onClickEditTextAdvOptionDrugRType() {
         MaterialDialog.Builder(context!!)
-            .title("ประเภททะเบียนยา")
-            .items(mDrugRType)
-            .itemsCallback({ dialog, itemView, position, text ->
-                editTextAdvOptionDrugRType.setText(text)
-                mDType = position.toString()
-                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-            })
-            .show()
+                .title("ประเภททะเบียนยา")
+                .items(mDrugRType)
+                .itemsCallback({ dialog, itemView, position, text ->
+                    editTextAdvOptionDrugRType.setText(text)
+                    mDType = position.toString()
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+                })
+                .show()
     }
 
     /**
