@@ -102,12 +102,12 @@ class MainFragment : Fragment(), View.OnClickListener {
     var mDStatus: String? = null
 
     var mColorList = arrayListOf(
-            "#ffeeeeee", "#ffffffff", "#ffea0000", "#fffe700e", "#ffffe400", "#ffefeddb",
+            "#ffffffff", "#ffea0000", "#fffe700e", "#ffffe400", "#ffefeddb",
             "#ffa8e26a", "#ff4a9fe0", "#ff120992", "#fffdb1ef", "#ffc977db",
             "#ffc2924a", "#ffcccccc", "#ff232222")
 
     var mColorMap = mapOf(
-            "ffeeeeee" to "ไม่ระบุ", "ffffffff" to "ขาว", "ffea0000" to "แดง", "fffe700e" to "ส้ม", "ffffe400" to "เหลือง", "ffefeddb" to "ครีม",
+            "ffffffff" to "ขาว", "ffea0000" to "แดง", "fffe700e" to "ส้ม", "ffffe400" to "เหลือง", "ffefeddb" to "ครีม",
             "ffa8e26a" to "เขียว", "ff4a9fe0" to "ฟ้า", "ff120992" to "น้ำเงิน", "fffdb1ef" to "ชมพู", "ffc977db" to "ม่วง",
             "ffc2924a" to "น้ำตาล", "ffcccccc" to "เทา", "ff232222" to "ดำ")
 
@@ -364,6 +364,21 @@ class MainFragment : Fragment(), View.OnClickListener {
             }
 
         } else {
+
+            if (!mColor1.isNullOrBlank()) {
+                mColor1 = (mColor1!!.toInt() + 1).toString()
+            }
+
+            if (!mColor2.isNullOrBlank()) {
+                mColor2 = (mColor2!!.toInt() + 1).toString()
+            }
+
+            if (!mColor3.isNullOrBlank()) {
+                mColor3 = (mColor3!!.toInt() + 1).toString()
+            }
+            if (!mColor4.isNullOrBlank()) {
+                mColor4 = (mColor4!!.toInt() + 1).toString()
+            }
 
             mTradename = editTextSearch.text.toString()
             call = HttpManager.getInstance().getService().advanceSearch(

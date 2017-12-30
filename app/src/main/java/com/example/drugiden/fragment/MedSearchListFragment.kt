@@ -1,6 +1,5 @@
 package com.example.drugiden.fragment
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -12,8 +11,6 @@ import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import com.example.drugiden.R
 import com.example.drugiden.adapter.SearchItemListAdapter
 import com.example.drugiden.dao.DrugSearchList

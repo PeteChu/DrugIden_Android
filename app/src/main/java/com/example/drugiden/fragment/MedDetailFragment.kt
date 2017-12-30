@@ -60,6 +60,7 @@ class MedDetailFragment : Fragment() {
         mViewPagerIndicator = rootView.detail_page_indicator
 
         rootView.textView_med_tradeName_eng.text = mDrugSearchDetail.tradenamename
+        rootView.textView_med_genericname_eng.text = mDrugSearchDetail.genericname
         rootView.textView_med_regNumber.text = mDrugSearchDetail.regno
         rootView.textView_med_manufacturer.text = mDrugSearchDetail.manufacturername
         rootView.textView_med_licenseName.text = mDrugSearchDetail.licenseename

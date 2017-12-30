@@ -67,6 +67,18 @@
                     style="@style/Subhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="ชื่อสามัญ " />
+
+                <TextView
+                    android:id="@+id/textView_med_genericname_eng"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:text="เลขทะเบียน" />
 
                 <TextView
