@@ -598,24 +598,27 @@ class MainFragment : Fragment(), View.OnClickListener {
         colorPicker.setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
             override fun onChooseColor(position: Int, color: Int) {
 
-                circleView.titleText = mColorMap.getValue(java.lang.Integer.toHexString(color))
-                circleView.fillColor = color
-                when (numberColor) {
-                    1 -> {
+                if (mColorMap.containsKey(java.lang.Integer.toHexString(color))) {
+                    circleView.titleText = mColorMap.getValue(java.lang.Integer.toHexString(color))
+                    circleView.fillColor = color
+
+                    when (numberColor) {
+                        1 -> {
 //                        mColor1 = mColorMap.getValue(java.lang.Integer.toHexString(color))
-                        mColor1 = position.toString()
-                    }
-                    2 -> {
+                            mColor1 = position.toString()
+                        }
+                        2 -> {
 //                        mColor2 = mColorMap.getValue(java.lang.Integer.toHexString(color))
-                        mColor2 = position.toString()
-                    }
-                    3 -> {
+                            mColor2 = position.toString()
+                        }
+                        3 -> {
 //                        mColor3 = mColorMap.getValue(java.lang.Integer.toHexString(color))
-                        mColor3 = position.toString()
-                    }
-                    4 -> {
+                            mColor3 = position.toString()
+                        }
+                        4 -> {
 //                        mColor4 = mColorMap.getValue(java.lang.Integer.toHexString(color))
-                        mColor4 = position.toString()
+                            mColor4 = position.toString()
+                        }
                     }
                 }
 
