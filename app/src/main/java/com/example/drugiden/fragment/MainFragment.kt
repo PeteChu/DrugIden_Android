@@ -63,10 +63,12 @@ class MainFragment : Fragment(), View.OnClickListener {
     lateinit var editTextAdvOptionDrugRType: MaterialEditText
 
     lateinit var btnSearch: Button
+    lateinit var btnResetSearch: Button
     lateinit var switchAdvSearch: Switch
     lateinit var optionsAdvSearch: LinearLayout
 
     lateinit var listDrugResponse: DrugSearchList
+    lateinit var mShapeTextArray: Array<String?>
 
     var mMedColor: ArrayList<String> = ArrayList()
     var mDrugGroup: ArrayList<String> = ArrayList()
@@ -92,6 +94,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     var mDType: String? = null
     var mDRType: String? = null
     var mDShape: String? = null
+
     var mShapeText: String? = null
     var mShapeText2: String? = null
     var mShapeText3: String? = null
@@ -102,14 +105,14 @@ class MainFragment : Fragment(), View.OnClickListener {
     var mDStatus: String? = null
 
     var mColorList = arrayListOf(
-            "#ffffffff", "#ffea0000", "#fffe700e", "#ffffe400", "#ffefeddb",
-            "#ffa8e26a", "#ff4a9fe0", "#ff120992", "#fffdb1ef", "#ffc977db",
-            "#ffc2924a", "#ffcccccc", "#ff232222")
+        "#ffffffff", "#ffea0000", "#fffe700e", "#ffffe400", "#ffefeddb",
+        "#ffa8e26a", "#ff4a9fe0", "#ff120992", "#fffdb1ef", "#ffc977db",
+        "#ffc2924a", "#ffcccccc", "#ff232222")
 
     var mColorMap = mapOf(
-            "ffffffff" to "ขาว", "ffea0000" to "แดง", "fffe700e" to "ส้ม", "ffffe400" to "เหลือง", "ffefeddb" to "ครีม",
-            "ffa8e26a" to "เขียว", "ff4a9fe0" to "ฟ้า", "ff120992" to "น้ำเงิน", "fffdb1ef" to "ชมพู", "ffc977db" to "ม่วง",
-            "ffc2924a" to "น้ำตาล", "ffcccccc" to "เทา", "ff232222" to "ดำ")
+        "ffffffff" to "ขาว", "ffea0000" to "แดง", "fffe700e" to "ส้ม", "ffffe400" to "เหลือง", "ffefeddb" to "ครีม",
+        "ffa8e26a" to "เขียว", "ff4a9fe0" to "ฟ้า", "ff120992" to "น้ำเงิน", "fffdb1ef" to "ชมพู", "ffc977db" to "ม่วง",
+        "ffc2924a" to "น้ำตาล", "ffcccccc" to "เทา", "ff232222" to "ดำ")
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -148,12 +151,15 @@ class MainFragment : Fragment(), View.OnClickListener {
         editTextAdvOptionDrugType = rootView.editText_advOption_drugType
         editTextAdvOptionDrugRType = rootView.editText_advOption_drugRType
 
+        mShapeTextArray = arrayOfNulls(6)
+
         viewOptionColor1.setShowSubtitle(false)
         viewOptionColor2.setShowSubtitle(false)
         viewOptionColor3.setShowSubtitle(false)
         viewOptionColor4.setShowSubtitle(false)
 
         btnSearch = rootView.btn_quick_search
+        btnResetSearch = rootView.btn_reset_search
         switchAdvSearch = rootView.switch_advanceSearch
         optionsAdvSearch = rootView.view_advanceSearch
 
@@ -172,6 +178,7 @@ class MainFragment : Fragment(), View.OnClickListener {
 
 
         btnSearch.setOnClickListener(this)
+        btnResetSearch.setOnClickListener(this)
         switchAdvSearch.setOnClickListener(this)
         viewOptionColor1.setOnClickListener(this)
         viewOptionColor2.setOnClickListener(this)
@@ -194,6 +201,7 @@ class MainFragment : Fragment(), View.OnClickListener {
     override fun onResume() {
         if (switchAdvSearch.isChecked) {
             switchAdvSearch.isChecked = false
+            resetAdvOptions()
         }
 
         super.onResume()
@@ -208,6 +216,9 @@ class MainFragment : Fragment(), View.OnClickListener {
                 } else {
                     onClickAdvanceSearch()
                 }
+            }
+            btnResetSearch -> {
+                resetAdvOptions()
             }
             switchAdvSearch -> {
                 onCheckSwitchAdvSearch()
@@ -355,11 +366,11 @@ class MainFragment : Fragment(), View.OnClickListener {
             } else {
                 waitDialog.dismiss()
                 MaterialDialog.Builder(context!!)
-                        .title("ผลการค้นหา")
-                        .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
-                        .contentGravity(GravityEnum.CENTER)
-                        .positiveText("ตกลง")
-                        .show()
+                    .title("ผลการค้นหา")
+                    .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
+                    .contentGravity(GravityEnum.CENTER)
+                    .positiveText("ตกลง")
+                    .show()
                 return
             }
 
@@ -382,9 +393,9 @@ class MainFragment : Fragment(), View.OnClickListener {
 
             mTradename = editTextSearch.text.toString()
             call = HttpManager.getInstance().getService().advanceSearch(
-                    mColor1, mColor2, mColor3, mColor4, mTradename, mManufacturer, mGenericName, mLicense, mDistributor, mDGroup,
-                    mDType, mDRType, mDShape, mDWide, mDLong, mShapeText, mShapeText2, mShapeText3, mShapeText4, mShapeText5,
-                    mShapeText6, mDSize, mDStatus)
+                mColor1, mColor2, mColor3, mColor4, mTradename, mManufacturer, mGenericName, mLicense, mDistributor, mDGroup,
+                mDType, mDRType, mDShape, mDWide, mDLong, mShapeTextArray[0], mShapeTextArray[1], mShapeTextArray[2], mShapeTextArray[3], mShapeTextArray[4],
+                mShapeTextArray[5], mDSize, mDStatus)
         }
 
         call.enqueue(object : Callback<DrugSearchList> {
@@ -401,16 +412,16 @@ class MainFragment : Fragment(), View.OnClickListener {
 
                     if (listDrugResponse.results!!.isNotEmpty()) {
                         fragmentManager!!.beginTransaction()
-                                .replace(R.id.mainActivity_content_container, MedSearchListFragment.newInstance(listDrugResponse))
-                                .addToBackStack(null)
-                                .commit()
+                            .replace(R.id.mainActivity_content_container, MedSearchListFragment.newInstance(listDrugResponse))
+                            .addToBackStack(null)
+                            .commit()
                     } else {
                         MaterialDialog.Builder(context!!)
-                                .title("ผลการค้นหา")
-                                .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
-                                .contentGravity(GravityEnum.CENTER)
-                                .positiveText("ตกลง")
-                                .show()
+                            .title("ผลการค้นหา")
+                            .content("-ไม่พบข้อมูลตามที่ร้องขอ-")
+                            .contentGravity(GravityEnum.CENTER)
+                            .positiveText("ตกลง")
+                            .show()
                     }
 
                 }
@@ -418,11 +429,11 @@ class MainFragment : Fragment(), View.OnClickListener {
 
             override fun onFailure(call: Call<DrugSearchList>?, t: Throwable?) {
                 MaterialDialog.Builder(context!!)
-                        .title("ผลการค้นหา")
-                        .content("-กรุณาลองอีกครั้ง-")
-                        .contentGravity(GravityEnum.CENTER)
-                        .positiveText("ตกลง")
-                        .show()
+                    .title("ผลการค้นหา")
+                    .content("-กรุณาลองอีกครั้ง-")
+                    .contentGravity(GravityEnum.CENTER)
+                    .positiveText("ตกลง")
+                    .show()
             }
         })
 //        } else {
@@ -631,91 +642,148 @@ class MainFragment : Fragment(), View.OnClickListener {
         colorPicker.show()
     }
 
-    private fun onClickEditTextAdvOptionDrugGroup() {
-        MaterialDialog.Builder(context!!)
-                .title("ประเภทของยา")
-                .items(mDrugGroup)
-                .itemsCallback({ dialog, itemView, position, text ->
-                    editTextAdvOptionDrugGroup.setText(text)
-                    mDGroup = position.toString()
-//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-                })
-                .show()
-    }
-
-    private fun onClickEditTextAdvOptionDrugSize() {
-        MaterialDialog.Builder(context!!)
-                .title("ขนาดด้านยาว")
-                .items(mDrugSize)
-                .itemsCallback({ dialog, itemView, position, text ->
-                    editTextAdvOptionDrugSize.setText(text)
-                    mDSize = position.toString()
-//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-                })
-                .show()
-    }
-
     private fun onClickEditTextAdvOptionDrugShape() {
         MaterialDialog.Builder(context!!)
-                .title("รูปร่างลักษณะ")
-                .items(mDrugShape)
-                .itemsCallback({ dialog, itemView, position, text ->
+            .title("รูปร่างลักษณะ")
+            .items(mDrugShape)
+            .itemsCallback({ dialog, itemView, position, text ->
+
+                if (position == 0) {
+                    editTextAdvOptionDrugShape.setText(text)
+                    mDShape = null
+                } else {
                     editTextAdvOptionDrugShape.setText(text)
                     mDShape = position.toString()
+                }
+
 //                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-                })
-                .show()
-    }
-
-    private fun onClickEditTextAdvOptionDrugShapeType() {
-        MaterialDialog.Builder(context!!)
-                .title("สัญลักษณ์ / ตัวอักษร ที่ปรากฎบนเม็ดยา")
-                .items(mDrugShapeType)
-                .itemsCallbackMultiChoice(null, object : MaterialDialog.ListCallbackMultiChoice {
-                    override fun onSelection(dialog: MaterialDialog?, which: Array<Int>, text: Array<CharSequence>): Boolean {
-
-                        Toast.makeText(context, text.toString(), Toast.LENGTH_SHORT).show()
-                        return true
-                    }
-                })
-                .positiveText("OK")
-                .show()
-    }
-
-    private fun onClickEditTextAdvOptionDrugStatus() {
-        MaterialDialog.Builder(context!!)
-                .title("สถานะของยา")
-                .items(mDrugStatus)
-                .itemsCallback({ dialog, itemView, position, text ->
-                    editTextAdvOptionDrugStatus.setText(text)
-                    mDStatus = position.toString()
-//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-                })
-                .show()
+            })
+            .show()
     }
 
     private fun onClickEditTextAdvOptionDrugType() {
         MaterialDialog.Builder(context!!)
-                .title("รูปแบบผลิตภัณฑ์")
-                .items(mDrugType)
-                .itemsCallback({ dialog, itemView, position, text ->
+            .title("รูปแบบผลิตภัณฑ์")
+            .items(mDrugType)
+            .itemsCallback({ dialog, itemView, position, text ->
+
+                if (position == 0) {
+                    editTextAdvOptionDrugType.setText(text)
+                    mDType = null
+                } else {
                     editTextAdvOptionDrugType.setText(text)
                     mDType = position.toString()
+                }
 //                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-                })
-                .show()
+            })
+            .show()
+    }
+
+    private fun onClickEditTextAdvOptionDrugShapeType() {
+        MaterialDialog.Builder(context!!)
+            .title("สัญลักษณ์ / ตัวอักษร ที่ปรากฎบนเม็ดยา")
+            .items(mDrugShapeType)
+            .itemsCallbackMultiChoice(null, object : MaterialDialog.ListCallbackMultiChoice {
+                override fun onSelection(dialog: MaterialDialog?, which: Array<Int>, text: Array<CharSequence>): Boolean {
+
+                    var allowSelectionChange = which.size <= 6
+
+
+                    if (!allowSelectionChange) {
+                        Toast.makeText(context, "Selection limit reached.", Toast.LENGTH_SHORT).show()
+                        editTextAdvOptionDrugShapeType.setText("ไม่ระบุ")
+                    } else {
+                        which.forEachIndexed { index, i ->
+                            mShapeTextArray[index] = (i).toString()
+                        }
+                        var tmpText = ""
+                        text.forEach { i ->
+                            tmpText += i.toString() + ","
+                        }
+                        editTextAdvOptionDrugShapeType.setText(tmpText)
+                    }
+
+                    return allowSelectionChange
+                }
+            })
+            .positiveText("OK")
+            .show()
+
+
+    }
+
+    private fun onClickEditTextAdvOptionDrugSize() {
+        MaterialDialog.Builder(context!!)
+            .title("ขนาดด้านยาว")
+            .items(mDrugSize)
+            .itemsCallback({ dialog, itemView, position, text ->
+
+                if (position == 0) {
+                    editTextAdvOptionDrugSize.setText(text)
+                    mDSize = null
+                } else {
+                    editTextAdvOptionDrugSize.setText(text)
+                    mDSize = position.toString()
+                }
+
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+            })
+            .show()
+    }
+
+    private fun onClickEditTextAdvOptionDrugStatus() {
+        MaterialDialog.Builder(context!!)
+            .title("สถานะของยา")
+            .items(mDrugStatus)
+            .itemsCallback({ dialog, itemView, position, text ->
+
+                if (position == 0) {
+                    editTextAdvOptionDrugStatus.setText(text)
+                    mDStatus = null
+                } else {
+                    editTextAdvOptionDrugStatus.setText(text)
+                    mDStatus = position.toString()
+                }
+
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+            })
+            .show()
+    }
+
+    private fun onClickEditTextAdvOptionDrugGroup() {
+        MaterialDialog.Builder(context!!)
+            .title("ประเภทของยา")
+            .items(mDrugGroup)
+            .itemsCallback({ dialog, itemView, position, text ->
+                if (position == 0) {
+                    editTextAdvOptionDrugGroup.setText(text)
+                    mDGroup = null
+                } else {
+                    editTextAdvOptionDrugGroup.setText(text)
+                    mDGroup = position.toString()
+                }
+
+//                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
+            })
+            .show()
     }
 
     private fun onClickEditTextAdvOptionDrugRType() {
         MaterialDialog.Builder(context!!)
-                .title("ประเภททะเบียนยา")
-                .items(mDrugRType)
-                .itemsCallback({ dialog, itemView, position, text ->
+            .title("ประเภททะเบียนยา")
+            .items(mDrugRType)
+            .itemsCallback({ dialog, itemView, position, text ->
+                if (position == 0) {
+                    editTextAdvOptionDrugRType.setText(text)
+                    mDType = null
+                } else {
                     editTextAdvOptionDrugRType.setText(text)
                     mDType = position.toString()
+                }
+
 //                Toast.makeText(context, position.toString(), Toast.LENGTH_SHORT).show()
-                })
-                .show()
+            })
+            .show()
     }
 
     /**
@@ -745,6 +813,8 @@ class MainFragment : Fragment(), View.OnClickListener {
         editTextAdvOptionDrugStatus.setText("ไม่ระบุ")
         editTextAdvOptionDrugType.setText("ไม่ระบุ")
         editTextAdvOptionDrugRType.setText("ไม่ระบุ")
+
+        mShapeTextArray.fill(null)
 
         mColor1 = null
         mColor2 = null

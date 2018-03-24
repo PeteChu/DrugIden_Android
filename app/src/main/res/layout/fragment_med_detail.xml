@@ -103,7 +103,7 @@
                     style="@style/Subhead"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ผู้รับอณุญาติ" />
+                    android:text="ผู้รับอนุญาต" />
 
                 <TextView
                     android:id="@+id/textView_med_licenseName"
@@ -203,6 +203,112 @@
 
                 <TextView
                     android:id="@+id/textView_med_rType"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="บัญชียาหลักแห่งชาติ" />
+
+                <TextView
+                    android:id="@+id/textView_med_nLemName"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="เงื่อนไขในบัญชียาหลักแห่งชาติ" />
+
+                <TextView
+                    android:id="@+id/textView_med_nLemConditionName"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ข้อบ่งใช้" />
+
+                <TextView
+                    android:id="@+id/textView_med_indicationName"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="กลุ่มยา" />
+
+                <TextView
+                    android:id="@+id/textView_med_categoryName"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="กลุ่มทางเภสัชวิทยา" />
+
+                <TextView
+                    android:id="@+id/textView_med_phar_cat_nlemname"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="กลุ่มทางเภสัชวิทยา (จาก Uptodate)" />
+
+                <TextView
+                    android:id="@+id/textView_med_phar_cat_uptodatename"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="อ้างอิงถึง Micromedex" />
+
+                <TextView
+                    android:id="@+id/textView_med_rMicromedexname"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="อ้างอิงถึง Medscape" />
+
+                <TextView
+                    android:id="@+id/textView_med_rMedscape"
+                    style="@style/Body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    style="@style/Subhead"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="อ้างอิงถึง Mims" />
+
+                <TextView
+                    android:id="@+id/textView_med_rMimsname"
                     style="@style/Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

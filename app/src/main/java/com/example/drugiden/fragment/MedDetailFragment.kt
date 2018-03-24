@@ -2,7 +2,6 @@ package com.example.drugiden.fragment
 
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
@@ -13,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.example.drugiden.R
 import com.example.drugiden.adapter.PreviewImagesAdapter
+import com.example.drugiden.dao.DrugDetailItem
 import com.example.drugiden.dao.DrugImageList
 import com.example.drugiden.dao.DrugSearchItem
 import com.example.drugiden.manager.HttpManager
@@ -27,7 +27,7 @@ import retrofit2.Response
  */
 class MedDetailFragment : Fragment() {
 
-    lateinit var mDrugSearchDetail: DrugSearchItem
+    lateinit var mDrugSearchDetail: DrugDetailItem
     lateinit var mToolbar: Toolbar
 
     lateinit var mViewPager: ViewPager
@@ -42,7 +42,7 @@ class MedDetailFragment : Fragment() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        mDrugSearchDetail = arguments!!.getSerializable("drugSearchDetail") as DrugSearchItem
+        mDrugSearchDetail = arguments!!.getSerializable("drugSearchDetail") as DrugDetailItem
         super.onCreate(savedInstanceState)
     }
 
@@ -72,6 +72,15 @@ class MedDetailFragment : Fragment() {
         rootView.textView_med_shape.text = mDrugSearchDetail.dshapename
         rootView.textView_med_group.text = mDrugSearchDetail.dgroupname
         rootView.textView_med_rType.text = mDrugSearchDetail.drtypename
+        rootView.textView_med_nLemName.text = mDrugSearchDetail.nlemname
+        rootView.textView_med_nLemConditionName.text = mDrugSearchDetail.nlemConditionname
+        rootView.textView_med_indicationName.text = mDrugSearchDetail.indicationname
+        rootView.textView_med_categoryName.text = mDrugSearchDetail.categoryname
+        rootView.textView_med_phar_cat_nlemname.text = mDrugSearchDetail.pharCatNlemname
+        rootView.textView_med_phar_cat_uptodatename.text = mDrugSearchDetail.pharCatUptodatename
+        rootView.textView_med_rMicromedexname.text = mDrugSearchDetail.rMicromedexname
+        rootView.textView_med_rMedscape.text = mDrugSearchDetail.rMedscape
+        rootView.textView_med_rMimsname.text = mDrugSearchDetail.rMimsname
         rootView.textView_med_status.text = mDrugSearchDetail.dstatusname
 
         if (mDrugSearchDetail.tradenamename.isNullOrBlank()) {
@@ -110,6 +119,33 @@ class MedDetailFragment : Fragment() {
         if (mDrugSearchDetail.drtypename.isNullOrBlank()) {
             rootView.textView_med_rType.text = "-"
         }
+        if (mDrugSearchDetail.nlemname.isNullOrBlank()) {
+            rootView.textView_med_nLemName.text = "-"
+        }
+        if (mDrugSearchDetail.nlemConditionname.isNullOrBlank()) {
+            rootView.textView_med_nLemConditionName.text = "-"
+        }
+        if (mDrugSearchDetail.indicationname.isNullOrBlank()) {
+            rootView.textView_med_indicationName.text = "-"
+        }
+        if (mDrugSearchDetail.categoryname.isNullOrBlank()) {
+            rootView.textView_med_categoryName.text = "-"
+        }
+        if (mDrugSearchDetail.pharCatNlemname.isNullOrBlank()) {
+            rootView.textView_med_phar_cat_nlemname.text = "-"
+        }
+        if (mDrugSearchDetail.pharCatUptodatename.isNullOrBlank()) {
+            rootView.textView_med_phar_cat_uptodatename.text = "-"
+        }
+        if (mDrugSearchDetail.rMicromedexname.isNullOrBlank()) {
+            rootView.textView_med_rMicromedexname.text = "-"
+        }
+        if (mDrugSearchDetail.rMedscape.isNullOrBlank()) {
+            rootView.textView_med_rMedscape.text = "-"
+        }
+        if (mDrugSearchDetail.rMimsname.isNullOrBlank()) {
+            rootView.textView_med_rMimsname.text = "-"
+        }
         if (mDrugSearchDetail.dstatusname.isNullOrBlank()) {
             rootView.textView_med_status.text = "-"
         }
@@ -137,7 +173,7 @@ class MedDetailFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(drugSearchDetail: DrugSearchItem): MedDetailFragment {
+        fun newInstance(drugSearchDetail: DrugDetailItem): MedDetailFragment {
             val fragment = MedDetailFragment()
             var args = Bundle()
             args.putSerializable("drugSearchDetail", drugSearchDetail)

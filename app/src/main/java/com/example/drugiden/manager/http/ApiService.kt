@@ -42,6 +42,9 @@ interface ApiService {
 //                    @Query("token") token: String
     ): Call<DrugSearchList>
 
+    @GET("/drugs/id")
+    fun getDrugDetail(@Query("id") id: String): Call<DrugDetailList>
+
     @GET("/drugs/dimg")
     fun getDimages(@Query("id") medicineId: String,
                    @Query("token") token: String

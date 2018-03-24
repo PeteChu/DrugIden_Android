@@ -301,6 +301,17 @@
                     android:paddingTop="50dp">
 
                     <Button
+                        android:id="@+id/btn_reset_search"
+                        style="@style/Widget.AppCompat.Button.Colored"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="รีเซ็ต"
+                        android:textSize="18sp" />
+
+                    <Button
                         android:id="@+id/btn_quick_search"
                         style="@style/Widget.AppCompat.Button.Colored"
                         android:layout_width="match_parent"
